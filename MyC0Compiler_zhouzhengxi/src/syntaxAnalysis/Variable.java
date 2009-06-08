@@ -1,6 +1,6 @@
 package syntaxAnalysis;
 
-import errorDeal.ErrorFactory;
+import errorDeal.ErrorOper;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
@@ -32,7 +32,7 @@ public class Variable {
 //			if(!word.getWordName().equals(";")){
 			if(!VariableDeal.tempName.equals(";")){
 				Errors error = Errors.lostFH_Error;
-				new ErrorFactory(error).display();
+				new ErrorOper(error).display();
 				result = false;
 //				break;
 			}else{

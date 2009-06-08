@@ -2,7 +2,7 @@ package wordAnalysis;
 
 import java.io.*;
 
-public class AnalyseFrame {
+public class Start_WordAnalysis {
 	private static final long serialVersionUID = 1L;
 
 	// 文件名
@@ -31,13 +31,14 @@ public class AnalyseFrame {
 	int prev_num;
 	int pro_var;
 	boolean Is_Program = false;
-	KeyWord[] key = new KeyWord[100];
+
+	KeyWord[] keyword = new KeyWord[100];
 	/*
 	 * 临时
 	 */
-	token CurrentToken = new token();
+	Token CurrentToken = new Token();
 
-	token[] tokenList = new token[1024];
+	Token[] tokenList = new Token[1024];
 
 	InputStreamReader reader;
 
@@ -46,52 +47,45 @@ public class AnalyseFrame {
 	private File sourFile = new File("sourceCode.txt");// source file you want
 
 	public static void main(String[] args) {
-		new AnalyseFrame().word_analysis();
+		new Start_WordAnalysis().payBack();
 	}
-	
+
 	/* 词法分析函数 */
-	public void word_analysis() {
-		new AnalyseFrame().clearObj();
+	public void payBack() {
+		/*
+		 * 清空token.txt
+		 */
+		new Start_WordAnalysis().clearObj();
+
 		int i = 0;
-		code_count = 0;
-		LineOfPro = 0;
-		var_count = 0;
-		pro_var = 0;
-		prev_num = 1002;
-		addr_count = 1;
-		label_count = 1;
-		token_num = 1;
+
 		/*
 		 * To initial the example of class KeyWord
 		 */
 		for (i = 0; i < 100; i++) {
 			/*
-			 * 最终要将结果写入到keyword.txt，token.txt,
-			 * 估计，keyword.txt,最多为 100项 token.txt为1024项。
-			 * 它们都是通过key[i]获取，然后，存入到
-			 * 这些文档中的。因此，选初始化
+			 * 最终要将结果写入到Token.txt, 估计，keyword.txt,最多为 100项 Token.txt为1024项。
+			 * 它们都是通过key[i]获取，然后，存入到 这些文档中的。因此，选初始化
 			 */
-			key[i] = new KeyWord();
+			keyword[i] = new KeyWord();
 		}
 		for (i = 0; i < 1024; i++)
-			tokenList[i] = new token();
+			tokenList[i] = new Token();
 		Scanner();
 	}
 
-	// 主程序
 	public void Scanner() {
 		/*
 		 * The total number of error
 		 */
 		error_count = 0;
 
-		// 读入编码表,key[i]中存入的是单词的名称和编码
+		// 读入编码表,keyword[i]中存入的是单词的名称和编码
+		// 读入编码表
 		/*
-		 * It seems that it is useless. Not correctly. It has nothing to do with
-		 * word analysis. But it has to other function.
+		 * Read the Keyword.txt to keyword[i]
 		 */
 		ScannerInit();
-
 
 		/*
 		 * source file to be compiled.
@@ -106,7 +100,6 @@ public class AnalyseFrame {
 			 */
 			tempchar = reader.read();
 			while (tempchar != -1) {
-
 				ch = (char) tempchar;
 				/*
 				 * 0-9
@@ -117,9 +110,7 @@ public class AnalyseFrame {
 					/*
 					 * A-Z或a-z或_
 					 */
-					if (((ch > 64) && (ch < 91)) || ((ch > 96) && (ch < 123))
-
-					|| ch == '_')
+					if (((ch > 64) && (ch < 91)) || ((ch > 96) && (ch < 123)))
 						/*
 						 * 识别保留字和标识符
 						 */
@@ -153,11 +144,11 @@ public class AnalyseFrame {
 
 	// 读入编码表
 	/*
-	 * Read the Keyword.txt to key[i]
+	 * Read the Keyword.txt to keyword[i]
 	 */
 	public void ScannerInit() {
 		int i = 0;
-		File file = new File("keyword.txt");
+		File file = new File("reservedWord.txt");
 		BufferedReader reader1 = null;
 		try {
 			reader1 = new BufferedReader(new FileReader(file));
@@ -169,11 +160,11 @@ public class AnalyseFrame {
 				/*
 				 * 存入单词的名字和编码
 				 */
-				key[i].setname(temp[0]);
+				keyword[i].setname(temp[0]);
 				/*
 				 * Change the String read into Integer
 				 */
-				key[i].setcode(Integer.parseInt(temp[1]));
+				keyword[i].setcode(Integer.parseInt(temp[1]));
 			}
 
 		} catch (IOException e) {
@@ -202,6 +193,9 @@ public class AnalyseFrame {
 				e.printStackTrace();
 			}
 
+			/*
+			 * 说明有小数，那么转入实常数处理
+			 */
 			if (ch == '.') {
 				flag = true;
 				break;
@@ -212,6 +206,9 @@ public class AnalyseFrame {
 		 */
 		CurrentToken.setcode(28);
 		CurrentToken.setaddr(addr_count++);
+		/*
+		 * 标号，如 1 int 14 -1 的标号为 1
+		 */
 		CurrentToken.setlabel(label_count++);
 
 		if (flag) {
@@ -219,6 +216,9 @@ public class AnalyseFrame {
 				tempchar = reader.read();
 				ch1 = (char) tempchar;
 				if ((ch1 > 47) && (ch1 < 58))
+					/*
+					 * 48和57对应的ASCII码分别是1和9
+					 */
 					CurrentToken.setname(CurrentToken.getname() + ch);
 				else
 					Error(2);
@@ -234,12 +234,7 @@ public class AnalyseFrame {
 				CurrentToken.setcode(29);
 				if (ch == '.') {
 					Error(2);
-					tempchar = reader.read();
-					ch = (char) tempchar;
-					while ((ch > 47) && (ch < 58)) {
-						tempchar = reader.read();
-						ch = (char) tempchar;
-					}
+					
 				}
 				if (((ch > 64) && (ch < 90)) || ((ch > 96) && (ch < 123)))
 				/*
@@ -247,15 +242,7 @@ public class AnalyseFrame {
 				 */
 				{
 					Error(2);
-					while (((ch > 64) && (ch < 90))
-							|| ((ch > 96) && (ch < 123))) {
-						tempchar = reader.read();
-						ch = (char) tempchar;
-						while ((ch > 47) && (ch < 58)) {
-							tempchar = reader.read();
-							ch = (char) tempchar;
-						}
-					}
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -269,8 +256,7 @@ public class AnalyseFrame {
 		int i;
 		boolean h = false;
 		CurrentToken.setname("");
-		while (((ch > 64) && (ch < 90)) || ((ch > 96) && (ch < 123))
-				|| ch == '_') {
+		while (((ch > 64) && (ch < 90)) || ((ch > 96) && (ch < 123))) {
 			/*
 			 * A--Z a--z
 			 */
@@ -286,21 +272,21 @@ public class AnalyseFrame {
 		// 判断是否为保留字
 		for (i = 1; i < 60; i++) {
 
-			if (CurrentToken.getname().equals(key[i].getname())) {
+			if (CurrentToken.getname().equals(keyword[i].getname())) {
 				h = true;
 				break;
 			}
 		}
+		/*
+		 * 是保留字
+		 */
 		if (h) {
-			CurrentToken.setcode(key[i].getcode());
+			CurrentToken.setcode(keyword[i].getcode());
 			CurrentToken.setaddr(-1);
-		} else if (Is_Program) {
 			/*
-			 * 标志符
+			 *是函数
 			 */
-			CurrentToken.setcode(27);
-			CurrentToken.setaddr(prev_num);
-			prev_num += 2;
+		
 		} else {
 			CurrentToken.setcode(27);
 			CurrentToken.setaddr(addr_count++);
@@ -344,23 +330,27 @@ public class AnalyseFrame {
 				CurrentToken.setlabel(label_count++);
 				CurrentToken.setname("/");
 				OutPut();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// 字符串处理
+	// 字符处理
 	private void IsChar() {
 		CurrentToken.setname("");
 		try {
 			/*
-			 * 字符常数
+			 * 字符常数 30
 			 */
 			CurrentToken.setcode(30);
 			for (;;) {
 				tempchar = reader.read();
 				ch = (char) tempchar;
+				/*
+				 * "abc"
+				 */
 				if (ch != '"')
 					CurrentToken.setname(CurrentToken.getname() + ch);
 				else
@@ -383,11 +373,18 @@ public class AnalyseFrame {
 			CurrentToken.setname("");
 			switch (ch) {
 			case '(':
+				/*
+				 * void 49||int
+				 * 
+				 */
 				if (tokenList[token_num - 1].getcode() == 27
 						&& (tokenList[token_num - 2].getcode() == 49 || tokenList[token_num - 2]
 								.getcode() == 14)) {
-					Is_Program = true;
+					
 				}
+				/*
+				 * ( 32
+				 */
 				CurrentToken.setcode(32);
 				CurrentToken.setaddr(-1);
 				CurrentToken.setlabel(label_count++);
@@ -404,8 +401,8 @@ public class AnalyseFrame {
 				tempchar = reader.read();
 				break;
 			case '{':
-				if (Is_Program)
-					check_pro++;
+				
+			
 				CurrentToken.setcode(51);
 				CurrentToken.setaddr(-1);
 				CurrentToken.setlabel(label_count++);
@@ -414,13 +411,7 @@ public class AnalyseFrame {
 				tempchar = reader.read();
 				break;
 			case '}':
-				if (Is_Program) {
-					check_pro--;
-					if (check_pro == 0) {
-						pro_var = 0;
-						Is_Program = false;
-					}
-				}
+				
 				CurrentToken.setcode(52);
 				CurrentToken.setaddr(-1);
 				CurrentToken.setlabel(label_count++);
@@ -468,8 +459,7 @@ public class AnalyseFrame {
 				OutPut();
 				tempchar = reader.read();
 				break;
-		
-		
+
 			case ';':
 				CurrentToken.setcode(42);
 				CurrentToken.setaddr(-1);
@@ -489,20 +479,12 @@ public class AnalyseFrame {
 					OutPut();
 					tempchar = reader.read();
 				} else {
-					if (ch1 == '>') {
-						CurrentToken.setcode(45);
-						CurrentToken.setaddr(-1);
-						CurrentToken.setlabel(label_count++);
-						CurrentToken.setname("<>");
-						OutPut();
-						tempchar = reader.read();
-					} else {
 						CurrentToken.setcode(43);
 						CurrentToken.setaddr(-1);
 						CurrentToken.setlabel(label_count++);
 						CurrentToken.setname("<");
 						OutPut();
-					}
+					
 				}
 				break;
 			case '=':
@@ -555,10 +537,10 @@ public class AnalyseFrame {
 					OutPut();
 				}
 				break;
-			case 10:
-				LineOfPro++;
-				tempchar = reader.read();
-				break;
+				
+			/*
+			 * 13 if
+			 */
 			case 13:
 				LineOfPro++;
 				tempchar = reader.read();
@@ -598,7 +580,7 @@ public class AnalyseFrame {
 		} else {
 
 		}
-		append("token.txt", CurrentToken.getlabel(), CurrentToken.getcode(),
+		append("Token.txt", CurrentToken.getlabel(), CurrentToken.getcode(),
 				CurrentToken.getaddr(), CurrentToken.getname());
 
 		tokenList[token_num++].setcode(CurrentToken.getcode());
@@ -647,11 +629,11 @@ public class AnalyseFrame {
 		case 12:
 			System.out.println("error" + "第" + LineOfPro + "条,while语句出错\n");
 			break;
-		
+
 		case 14:
 			System.out.println("error" + "main函数缺少')'出错\n");
 			break;
-		
+
 		case 17:
 			System.out.println("error" + "main函数缺少'('出错\n");
 			break;
@@ -664,7 +646,7 @@ public class AnalyseFrame {
 		case 20:
 			System.out.println("error" + "缺少main函数出错\n");
 			break;
-		
+
 		case 53:
 			System.out.println("error" + "未写任何语句\n");
 			break;
@@ -709,7 +691,7 @@ public class AnalyseFrame {
 	public void clearObj() {
 		try {
 
-			FileWriter writer1 = new FileWriter("token.txt");
+			FileWriter writer1 = new FileWriter("Token.txt");
 			writer1.write("");
 
 			writer1.close();

@@ -64,7 +64,7 @@ public class VariableDeal {
 					
 					if (!SymbolOper.add(symbol)) {
 						Errors error = Errors.variableRedefine;
-						new ErrorFactory(error).display();
+						new ErrorOper(error).display();
 						result = false;
 						
 						
@@ -108,7 +108,7 @@ public class VariableDeal {
 					}
 				} else {
 					Errors error = Errors.variableDefineError;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 					result = false;
 					break;
 				}

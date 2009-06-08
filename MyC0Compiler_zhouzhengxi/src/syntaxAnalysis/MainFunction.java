@@ -3,7 +3,7 @@ package syntaxAnalysis;
 import layerControl.Layer;
 import outputPCode.Command;
 import outputPCode.PCodePut;
-import errorDeal.ErrorFactory;
+import errorDeal.ErrorOper;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
@@ -84,26 +84,26 @@ public class MainFunction {
 								result = true;
 							}else{
 								Errors error = Errors.lostDKH2;
-								new ErrorFactory(error).display();
+								new ErrorOper(error).display();
 							}
 						}
 						
 					}else{
 						Errors error = Errors.lostDKH1;
-						new ErrorFactory(error).display();
+						new ErrorOper(error).display();
 					}
 				}else{
 					Errors error = Errors.lostXKH2;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 				}
 			}else{
 				Errors error = Errors.lostXKH1;
-				new ErrorFactory(error).display();
+				new ErrorOper(error).display();
 			}			
 			
 		}else{
 			Errors error = Errors.lostMain;
-			new ErrorFactory(error).display();
+			new ErrorOper(error).display();
 		}
 		
 		return result;

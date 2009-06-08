@@ -1,6 +1,6 @@
 package syntaxAnalysis;
 
-import errorDeal.ErrorFactory;
+import errorDeal.ErrorOper;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
@@ -140,7 +140,7 @@ public class Factor {
 					}
 				} else {
 					Errors error = Errors.variableUndefined;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 				}
 			}
 			if (word.getCode() == 14) {
@@ -170,11 +170,11 @@ public class Factor {
 				}
 		} else if (word.getWordName().equals(";")) {
 			Errors error = Errors.expressionError;
-			new ErrorFactory(error).display();
+			new ErrorOper(error).display();
 			result = false;
 		} else {
 			Errors error = Errors.factorError;
-			new ErrorFactory(error).display();
+			new ErrorOper(error).display();
 		}
 		
 		
