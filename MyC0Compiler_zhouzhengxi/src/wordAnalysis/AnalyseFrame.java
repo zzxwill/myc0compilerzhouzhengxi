@@ -1,4 +1,4 @@
-package view;
+package wordAnalysis;
 
 import java.io.*;
 import compiler.structure.KeyWord;
