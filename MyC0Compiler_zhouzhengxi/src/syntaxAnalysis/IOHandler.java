@@ -1,6 +1,5 @@
 package syntaxAnalysis;
 
-import layerControl.Layer;
 import outputPCode.PCodeFactory;
 import symbolTable.Symbol;
 import symbolTable.SymbolTable;
@@ -20,7 +19,7 @@ public class IOHandler {
 	public boolean payBack() {
 		WordStructure word;
 		boolean result = false;
-
+		String belong="global";
 		if (FactorHandler.tempName.equals("printf")) {
 			word = GetNext.payBack();
 			if (word.getWordName().equals("(")) {
@@ -31,7 +30,7 @@ public class IOHandler {
 				// .getCurProcedureName());
 				// symbol.setValue("#");
 				// if (symbol != null) {
-				String belong;
+				
 				// belong = symbol.getBelong();
 				int lays = 1;
 				// if (belong.equals("global"))
@@ -52,8 +51,7 @@ public class IOHandler {
 					if (word.getCode() == 27) {
 //						PCodeFactory.output("WRT  " + 0 + "  " + 0);
 //						System.out.println("WRT  " + 0 + "  " + 0);
-						st = SymbolTable.getSymbol(word.getWordName(), Layer
-								.getCurProcedureName());
+						st = SymbolTable.getSymbol(word.getWordName(), belong);
 						relativeAddress = SymbolTable.getNoByName(st.getName(),
 								st.getLayer());
 						System.out.println("LOD  " + st.getLayer() +" "
