@@ -92,7 +92,6 @@ public class AnalyseFrame {
 		 */
 		ScannerInit();
 
-		System.out.println("词法分析程序开始\n生成token表如下:\n");// 词法分析
 
 		/*
 		 * source file to be compiled.
@@ -175,7 +174,6 @@ public class AnalyseFrame {
 				 * Change the String read into Integer
 				 */
 				key[i].setcode(Integer.parseInt(temp[1]));
-				System.out.println(temp[0] + " " + temp[1]);
 			}
 
 		} catch (IOException e) {
