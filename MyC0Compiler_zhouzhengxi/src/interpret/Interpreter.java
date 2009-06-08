@@ -3,6 +3,11 @@ package interpret;
 import getNextPCode.*;
 
 public class Interpreter {
+	public static void main(String args[]){
+		Interpreter.payBack();
+	}
+	
+	
 	public static void payBack() {
 		PCodeStructure pcode;
 		pcode = GetNext.payBack();
