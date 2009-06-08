@@ -1,7 +1,7 @@
 package outputPCode;
 import java.util.*;
 
-public class PCodeFactory {
+public class PCodePut {
 	private static int commandNum = 1;
 	public static void output(String s){
 		commandNum++;
@@ -24,9 +24,13 @@ public class PCodeFactory {
 		PCode.insertCommand(command);
 	}
 	
+	/*
+	 * 
+	 */
 	public static int getCommandNum(){
 		return commandNum;
 	}	
+	
 	public static void insertCommand(Command command){
 		PCode.insertCommand(command);
 	}

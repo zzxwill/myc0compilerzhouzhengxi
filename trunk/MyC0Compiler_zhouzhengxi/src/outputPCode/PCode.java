@@ -37,18 +37,7 @@ public class PCode {
 		System.out.println("-------------------------------------------¥Ú”°PCode-------------------------------------------");
 	}
 	
-	public static boolean hasMoreCommand(){
-		if(nextCommandPosition <= al.size())
-			return true;
-		else return false;
-	}
 	
-	public static Command getNextCommand(){
-		return al.get(nextCommandPosition++);
-	}
-	public static void setNextCommandPosition(int nextCP){
-		nextCommandPosition = nextCP;
-	}
 	
 	
 	

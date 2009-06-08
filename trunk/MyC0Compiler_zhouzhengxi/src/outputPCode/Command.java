@@ -1,10 +1,7 @@
 package outputPCode;
 
-import java.text.DecimalFormat;
-import java.util.*;
-
 public class Command {
-	private DecimalFormat df = new DecimalFormat("00");
+
 	private int position = 0;
 	private String operator;
 	private String data1;
@@ -44,11 +41,11 @@ public class Command {
 	public void setPosition(int position) {
 		this.position = position;
 	}
+	
 	public String toString(){
 		
-		return df.format(position)+"  "+operator+"  "+data1+"  "+data2;
+		return position+"  "+operator+"  "+data1+"  "+data2;
 	}
-	
 	
 	
 }
