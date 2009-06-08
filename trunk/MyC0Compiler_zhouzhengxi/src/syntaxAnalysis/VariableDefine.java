@@ -43,7 +43,7 @@ public class VariableDefine {
 			 */
 			value = "declareVariable";
 
-			belong = Layer.getCurProcedureName();
+			belong = "global";
 
 			int flag = 0;
 
@@ -83,14 +83,14 @@ public class VariableDefine {
 						if (word.getWordName().equals("(") && flag == 1) { // 此时说明是有返回值的函数
 
 							// SymFactory.rollBack();
-							Layer.setCurProcedureName(name);
+	//						Layer.setCurProcedureName(name);
 
 							// 该函数名字已经加入到符号表中，此处需将其类型改为 1，以及设置返回值的类型
 							/*
 							 * 1代表有返回值的函数
 							 */
 							kind = 1;
-							Layer.setCurProcedureName(name);
+	//						Layer.setCurProcedureName(name);
 							SymbolTable.delete(symbol);
 							symbol = new Symbol(name, kind, value, belong, addr);
 							System.out.println("Symbol(name, kind,value,addr,layer, belong)"+ "	" + name + "	" + kind + "	" + value + "	"
