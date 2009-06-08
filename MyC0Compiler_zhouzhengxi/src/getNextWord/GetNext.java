@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class GetNext {
-	public static BufferedReader token_reader;
+	public static BufferedReader tokenReader;
 	public static String wordName = "";
 	static int code = 0;
 	static int address;
@@ -24,7 +24,7 @@ public class GetNext {
 	static {
 		try {
 			File file = new File("token.txt");
-			token_reader = new BufferedReader(new FileReader(file));
+			tokenReader = new BufferedReader(new FileReader(file));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -41,13 +41,13 @@ public class GetNext {
 			String tempString = null;
 			// 一次读入一行，直到读入null为文件结束
 
-			if ((tempString = token_reader.readLine()) != null) {
+			if ((tempString = tokenReader.readLine()) != null) {
 				String[] temp = tempString.split(" ");
 				/*
 				 * 如token中的一行：2 main 50 -1，则： ID=main code=50 address=-1
 				 */
-				code = Integer.parseInt(temp[2]);
 				wordName = temp[1];
+				code = Integer.parseInt(temp[2]);
 				address = Integer.parseInt(temp[3]);
 				wordStructure = new WordStructure(wordName, code, address);
 			}
