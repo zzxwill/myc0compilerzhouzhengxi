@@ -5,17 +5,7 @@ public class Layer {
 	private static String preProcedureName = "global";
 	private static int layer = 0;
 	private static int addr = 0;
-	/*
-	public static void addLayer(){
-		layer++;
-	}
-	public static void delLayer(){
-		layer--;
-	}
-	public static int getCurLayer(){
-		return layer;
-	}
-	*/
+	
 	
 	/*
 	 * 更新过程名，现在运行的s,所以要将
