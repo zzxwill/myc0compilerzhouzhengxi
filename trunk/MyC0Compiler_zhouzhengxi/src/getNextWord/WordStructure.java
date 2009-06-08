@@ -1,8 +1,14 @@
 package getNextWord;
-
+/*
+ * 设置词法分析结果的单词的结构，
+ * 用以获取一个单词的各个属性
+ */
 public class WordStructure {
 	public String wordName = "";
 	public int code = 0;
+	/*
+	 *  address有时候充当的是变量或常量的值
+	 */
 	public int address;
 
 	public WordStructure() {
