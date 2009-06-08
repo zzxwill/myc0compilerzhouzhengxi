@@ -1,17 +1,19 @@
 package syntaxAnalysis;
 
-import outputPCode.PCodeFactory;
+import outputPCode.PCodePut;
 import errorDeal.*;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 
 import symbolTable.*;
 import layerControl.*;
-
-public class ConstDefineHandler {
+/*
+ * 声明常量子程序--具体处理
+ */
+public class ConstDeal {
 	public static String tempName;
 
-	public ConstDefineHandler() {
+	public ConstDeal() {
 		super();
 	}
 
@@ -19,17 +21,16 @@ public class ConstDefineHandler {
 		boolean result = false;
 		WordStructure word;
 //String name,int kind,int value,int addr,String layer,String belong
-		// ////////////////
+		
 		String name;
 		int kind;
 		String value;
 		String belong;
 		String layer="0";
 		int addr;
-		// ///////////////
 		
 		/*
-		 * 这个变量用于将不是'的字符送到ConstHandler中接收是否是
+		 * 这个变量用于将不是'的字符送到Const中接收是否是
 		 * ；的检验。
 		 * 
 		 */
@@ -40,7 +41,7 @@ public class ConstDefineHandler {
 
 			do {
 				word = GetNext.payBack();
-				if (word.getCode() == 27) { // 判断是标识符
+				if (word.getCode() == 27) { 
 					/*
 					 * 标志符的名称
 					 */
@@ -55,7 +56,6 @@ public class ConstDefineHandler {
 						if (word.getCode() == 28) {
 							// 加入到符号表中
 							/*
-							 * 类型是什么意思？
 							 */
 //							kind = 1;
 							value = word.getWordName();
@@ -71,10 +71,10 @@ public class ConstDefineHandler {
 							  * 这里的wordName就是变量的值
 							  * const int a=3;
 							  */
-							PCodeFactory.output("LIT  " + layer + "  " + word.getWordName());
+							PCodePut.output("LIT  " + layer + "  " + word.getWordName());
 							System.out.println("LIT  " + layer + "  " + word.getWordName());
 
-							if (!SymbolTable.add(symbol)) {
+							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
 								new ErrorFactory(error).display();
 								result = false;
@@ -104,8 +104,6 @@ public class ConstDefineHandler {
 				word = GetNext.payBack();
 				tempName=word.getWordName();
 			} while (tempName.equals(","));
-
-			// SymFactory.rollBack();
 
 		}
 
@@ -133,7 +131,7 @@ public class ConstDefineHandler {
 						if (word.getCode() == 29||word.getCode()==28) {
 							// 加入到符号表中
 							/*
-							 * 类型是什么意思？
+						
 							 */
 //							kind = 1;
 							value = word.getWordName();
@@ -142,12 +140,11 @@ public class ConstDefineHandler {
 							Symbol symbol = new Symbol(name, kind, value,belong, addr);
 							System.out.println("Symbol(name, kind,value,addr,layer, belong)"+ "	" + name + "	" + kind + "	" + value + "	"
 									+ addr + "	" +layer+ "	" +belong );
-//							symbol.setConst();
 							
-							PCodeFactory.output("LIT  " + layer + "  " + word.getWordName());
+							PCodePut.output("LIT  " + layer + "  " + word.getWordName());
 							System.out.println("LIT  " + layer + "  " + word.getWordName());
 
-							if (!SymbolTable.add(symbol)) {
+							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
 								new ErrorFactory(error).display();
 								result = false;
@@ -178,7 +175,6 @@ public class ConstDefineHandler {
 				tempName=word.getWordName();
 			} while (tempName.equals(","));
 
-			// SymFactory.rollBack();
 
 		}
 		/*
@@ -204,7 +200,6 @@ public class ConstDefineHandler {
 						if (word.getCode() == 27) {
 							// 加入到符号表中
 							/*
-							 * 类型是什么意思？
 							 */
 //							kind = 1;
 							value = word.getWordName();
@@ -214,10 +209,10 @@ public class ConstDefineHandler {
 							System.out.println("Symbol(name, kind,value,addr,layer, belong)"+ "	" + name + "	" + kind + "	" + value + "	"
 									+ addr + "	" +layer+ "	" +belong );
 //							symbol.setConst();
-							PCodeFactory.output("LIT  " + layer + "  " + word.getWordName());
+							PCodePut.output("LIT  " + layer + "  " + word.getWordName());
 							System.out.println("LIT  " + layer + "  " + word.getWordName());
 
-							if (!SymbolTable.add(symbol)) {
+							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
 								new ErrorFactory(error).display();
 								result = false;
@@ -248,7 +243,6 @@ public class ConstDefineHandler {
 				tempName=word.getWordName();
 			} while (tempName.equals(","));
 
-			// SymFactory.rollBack();
 
 		}
 		return result;

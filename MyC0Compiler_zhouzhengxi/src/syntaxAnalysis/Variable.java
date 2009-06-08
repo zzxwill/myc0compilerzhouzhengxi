@@ -5,9 +5,9 @@ import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 
-public class VariableDeclare {
+public class Variable {
 	WordStructure word;
-	public VariableDeclare(){
+	public Variable(){
 		super();
 	}
 	public boolean payBack(){
@@ -16,7 +16,7 @@ public class VariableDeclare {
 		/**
 		 * 变量说明
 		 */
-		VariableDefine vd = new VariableDefine();
+		VariableDeal vd = new VariableDeal();
 		
 		
 		/*
@@ -30,7 +30,7 @@ public class VariableDeclare {
 			
 			//System.out.println(sym);
 //			if(!word.getWordName().equals(";")){
-			if(!VariableDefine.tempName.equals(";")){
+			if(!VariableDeal.tempName.equals(";")){
 				Errors error = Errors.lostFH_Error;
 				new ErrorFactory(error).display();
 				result = false;
