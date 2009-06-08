@@ -1,24 +1,11 @@
 package view;
-
-import java.awt.*;
-import javax.swing.*;
 import javax.swing.text.*;
-import javax.swing.event.*;
-
-import java.awt.event.*;
 import java.io.*;
-import javax.swing.JSplitPane;
 import compiler.structure.KeyWord;
-import compiler.structure.equ;
 import compiler.structure.Stack;
-import compiler.structure.symble;
 import compiler.structure.token;
-import compiler.structure.var;
+public class AnalyseFrame {
 
-
-public class AnalyseFrame extends JFrame implements DocumentListener {
-
-	
 	/**
 	 * 
 	 */
@@ -55,39 +42,19 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 	 * 临时
 	 */
 	token CurrentToken = new token();
-	
-	symble Currentsymble = new symble();
 
-	symble[] SymbleList = new symble[100];
-	symble[] SymbleList_Pro = new symble[100];
 	token[] tokenList = new token[1024];
 
 	InputStreamReader reader;
 
-	// 语法分析声明变量
-	int token_pos;
-	int code;
-	int address;
-	int LineOfEqu;
-	int total_var;
 	/*
 	 * 堆栈段的实例
 	 */
 	Stack[] stack_expr = new Stack[100];
-	/*
-	 * 四元式结构
-	 */
-	equ[] Equ = new equ[1024];
-	/*
-	 * 变量表
-	 */
-	var[] VarList = new var[100];
+
 	String ID;
 	/*
-	 * pos是进栈的符号个数。
-	 * 这符号，有可能是
-	 * 也就是Push(code,address)执行的次数。
-	 * 
+	 * pos是进栈的符号个数。 这符号，有可能是 也就是Push(code,address)执行的次数。
 	 */
 	int pos;
 	int now_addr;
@@ -100,18 +67,15 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 	int gen_pos;
 	BufferedReader token_reader;
 
-	
-
-	
-//	private File sourFile = null;// source file you want to compile
-	private File sourFile = new File("sourceCode.txt");// source file you want to compile
-	
+	// private File sourFile = null;// source file you want to compile
+	private File sourFile = new File("sourceCode.txt");// source file you want
+	// to compile
 
 	private Document indocument;
 	private boolean edited = false;// judge whether the file is edited or not
 
 	public static void main(String[] args) {
-		new AnalyseFrame();
+		
 		new AnalyseFrame().analyseFile();
 
 	}
@@ -121,10 +85,8 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 	 */
 	public AnalyseFrame() {
 		super();
-//		initialize();
+		// initialize();
 	}
-
-
 
 	/**
 	 * 编译文件
@@ -138,16 +100,8 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 		 * 词法
 		 */
 		word_analysis();
-		/*
-		 * 语法和语义
-		 */
-//		parser();
-
 		
-
 	}
-
-	
 
 	/* 词法分析函数 */
 	public void word_analysis() {
@@ -170,8 +124,7 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 			 * 它们都是通过SymbleList[i]，SymbleList_Pro[i]，key[i]获取，然后，存入到
 			 * 这些文档中的。因此，选初始化
 			 */
-			SymbleList[i] = new symble();
-			SymbleList_Pro[i] = new symble();
+
 			key[i] = new KeyWord();
 		}
 		for (i = 0; i < 1024; i++)
@@ -194,7 +147,7 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 		ScannerInit();
 
 		System.out.println("词法分析程序开始\n生成token表如下:\n");// 词法分析
-	
+
 		/*
 		 * source file to be compiled.
 		 */
@@ -249,7 +202,6 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 		// 词法分析完毕 判断各个单词的种类
 	}
@@ -722,35 +674,13 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 				 * 
 				 * Symble int number; // 序号 int type; // 类型 String name; // 名称
 				 */
-				Currentsymble.setnumber(CurrentToken.getaddr());
-				Currentsymble.settype(CurrentToken.getcode());
-				Currentsymble.setname(CurrentToken.getname());
-				flag = WordHave();
-				if (((CurrentToken.getcode() == 27) && (flag == true))
-						|| (CurrentToken.getcode() == 30)
-						|| (CurrentToken.getcode() == 28)
-						|| (CurrentToken.getcode() == 29))
-					append("symble.txt", Currentsymble.getnumber(),
-							Currentsymble.gettype(), Currentsymble.getname());
+				
+//				flag = WordHave();
+				
+					
 			}
 		} else {
-			if ((CurrentToken.getcode() == 27)
-					|| (CurrentToken.getcode() == 30)
-					|| (CurrentToken.getcode() == 28)
-					|| (CurrentToken.getcode() == 29)) {
-				Currentsymble.setnumber(CurrentToken.getaddr());
-				Currentsymble.settype(CurrentToken.getcode());
-				Currentsymble.setname(CurrentToken.getname());
-				WordHave_pro();
-				/*
-				 * 数
-				 */
-				if ((CurrentToken.getcode() == 30)
-						|| (CurrentToken.getcode() == 28)
-						|| (CurrentToken.getcode() == 29))
-					append("symble.txt", Currentsymble.getnumber(),
-							Currentsymble.gettype(), Currentsymble.getname());
-			}
+			
 		}
 		append("token.txt", CurrentToken.getlabel(), CurrentToken.getcode(),
 				CurrentToken.getaddr(), CurrentToken.getname());
@@ -841,50 +771,9 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 		}
 	}
 
-	// 判断标识符是否存在
-	public boolean WordHave_pro() {
-		int i;
-		for (i = 0; i < pro_var; i++) {
-			if (Currentsymble.getname().equals(SymbleList_Pro[i].getname())
-					&& Currentsymble.gettype() == 27) {
-				CurrentToken.setaddr(SymbleList_Pro[i].getnumber());
-				return false;
-			}
-		}
-		SymbleList_Pro[pro_var].setname(CurrentToken.getname());
-		SymbleList_Pro[pro_var].settype(CurrentToken.getcode());
-		SymbleList_Pro[pro_var].setnumber(CurrentToken.getaddr());
-		pro_var++;
-		return true;
-	}
+	
 
-	// 判断单词是否存在
-
-	public boolean WordHave() {
-		int i;
-		/*
-		 * var_count is the variable which has been added into symble.txt
-		 */
-		for (i = 0; i < var_count; i++) {
-			if (Currentsymble.getname().equals(SymbleList[i].getname())
-					&& Currentsymble.gettype() == 27) {
-				/*
-				 * 将symble中的符号的序号numble加入到CurrentToken中。
-				 */
-				CurrentToken.setaddr(SymbleList[i].getnumber());
-				return false;
-			}
-		}
-
-		/*
-		 * CurrentToken is used as a temporary variable.
-		 */
-		SymbleList[var_count].setname(CurrentToken.getname());
-		SymbleList[var_count].settype(CurrentToken.getcode());
-		SymbleList[var_count].setnumber(CurrentToken.getaddr());
-		var_count++;
-		return true;
-	}
+	
 
 	// 写入文件
 	public void append(String fileName, int number, int type, String name) {
@@ -932,36 +821,14 @@ public class AnalyseFrame extends JFrame implements DocumentListener {
 	// 清空symble,token文件
 	public void clearObj() {
 		try {
-			FileWriter writer = new FileWriter("symble.txt");
-			writer.write("");
+
 			FileWriter writer1 = new FileWriter("token.txt");
 			writer1.write("");
-			FileWriter writer2 = new FileWriter("equ.txt");
-			writer1.write("");
-			writer.close();
+
 			writer1.close();
-			writer2.close();
+
 		} catch (IOException ioe) {
 		}
 	}
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }
