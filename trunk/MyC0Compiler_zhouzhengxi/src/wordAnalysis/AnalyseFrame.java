@@ -51,6 +51,7 @@ public class AnalyseFrame {
 	
 	/* 词法分析函数 */
 	public void word_analysis() {
+		new AnalyseFrame().clearObj();
 		int i = 0;
 		code_count = 0;
 		LineOfPro = 0;
@@ -157,7 +158,7 @@ public class AnalyseFrame {
 	 */
 	public void ScannerInit() {
 		int i = 0;
-		File file = new File("keyword-pre.txt");
+		File file = new File("keyword.txt");
 		BufferedReader reader1 = null;
 		try {
 			reader1 = new BufferedReader(new FileReader(file));
@@ -469,33 +470,8 @@ public class AnalyseFrame {
 				OutPut();
 				tempchar = reader.read();
 				break;
-			case '.':
-				CurrentToken.setcode(38);
-				CurrentToken.setaddr(-1);
-				CurrentToken.setlabel(label_count++);
-				CurrentToken.setname(".");
-				OutPut();
-				tempchar = reader.read();
-				break;
-			case ':':
-				ch1 = ch;
-				tempchar = reader.read();
-				ch = (char) tempchar;
-				if (ch != '=') {
-					CurrentToken.setcode(40);
-					CurrentToken.setaddr(-1);
-					CurrentToken.setlabel(label_count++);
-					CurrentToken.setname(":");
-					OutPut();
-				} else {
-					CurrentToken.setcode(41);
-					CurrentToken.setaddr(-1);
-					CurrentToken.setlabel(label_count++);
-					CurrentToken.setname(":=");
-					OutPut();
-					tempchar = reader.read();
-				}
-				break;
+		
+		
 			case ';':
 				CurrentToken.setcode(42);
 				CurrentToken.setaddr(-1);
@@ -673,18 +649,11 @@ public class AnalyseFrame {
 		case 12:
 			System.out.println("error" + "第" + LineOfPro + "条,while语句出错\n");
 			break;
-		case 13:
-			System.out.println("error" + "第" + LineOfPro + "条,for语句出错\n");
-			break;
+		
 		case 14:
 			System.out.println("error" + "main函数缺少')'出错\n");
 			break;
-		case 15:
-			System.out.println("error" + "第" + LineOfPro + "条布尔表达式语句出错\n");
-			break;
-		case 16:
-			System.out.println("error" + "第" + LineOfPro + "条布尔表达式语句缺少')'出错\n");
-			break;
+		
 		case 17:
 			System.out.println("error" + "main函数缺少'('出错\n");
 			break;
@@ -697,9 +666,7 @@ public class AnalyseFrame {
 		case 20:
 			System.out.println("error" + "缺少main函数出错\n");
 			break;
-		case 52:
-			System.out.println("error" + "程序结束缺乏.号\n");
-			break;
+		
 		case 53:
 			System.out.println("error" + "未写任何语句\n");
 			break;
