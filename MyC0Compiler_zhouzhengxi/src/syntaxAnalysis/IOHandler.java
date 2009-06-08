@@ -4,8 +4,8 @@ import layerControl.Layer;
 import outputPCode.PCodeFactory;
 import symbolTable.Symbol;
 import symbolTable.SymbolTable;
-import errorMg.ErrorFactory;
-import errorMg.Errors;
+import errorDeal.ErrorFactory;
+import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 

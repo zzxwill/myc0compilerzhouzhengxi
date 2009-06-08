@@ -4,8 +4,8 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.*;
 
-import errorMg.ErrorFactory;
-import errorMg.Errors;
+import errorDeal.ErrorFactory;
+import errorDeal.Errors;
 
 
 public class SymbolTable {

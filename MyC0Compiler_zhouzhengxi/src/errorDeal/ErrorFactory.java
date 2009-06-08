@@ -1,4 +1,4 @@
-package errorMg;
+package errorDeal;
 
 public class ErrorFactory {
 	private int line;    //´íÎóËùÔÚĞĞ
