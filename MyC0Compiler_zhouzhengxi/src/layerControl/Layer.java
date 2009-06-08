@@ -5,8 +5,6 @@ public class Layer {
 	private static String preProcedureName = "global";
 	private static int layer = 0;
 	private static int addr = 0;
-	
-	
 	/*
 	 * 更新过程名，现在运行的s,所以要将
 	 * curProcedureName更新为s
