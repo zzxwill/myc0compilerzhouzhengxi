@@ -1,0 +1,8 @@
+const int a=3;
+const float b=2.6;
+int n;
+void main()
+{
+n=a+2;
+printf("n=",n);
+}
