@@ -1,8 +1,6 @@
 package wordAnalysis;
 
 import java.io.*;
-import compiler.structure.KeyWord;
-import compiler.structure.token;
 
 public class AnalyseFrame {
 	private static final long serialVersionUID = 1L;

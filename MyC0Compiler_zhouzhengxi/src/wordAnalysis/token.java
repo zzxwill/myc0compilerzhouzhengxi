@@ -1,4 +1,4 @@
-package compiler.structure;
+package wordAnalysis;
 /*
  * 定义一种词法分析表中的各项的类型
  */
