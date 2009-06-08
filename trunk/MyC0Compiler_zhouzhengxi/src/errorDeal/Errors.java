@@ -1,4 +1,4 @@
-package errorMg;
+package errorDeal;
 
 public enum Errors {
 	floatError("浮点数格式不正确"),

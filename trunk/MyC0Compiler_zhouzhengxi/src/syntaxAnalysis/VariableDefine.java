@@ -1,6 +1,6 @@
 package syntaxAnalysis;
 
-import errorMg.*;
+import errorDeal.*;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 import symbolTable.*;

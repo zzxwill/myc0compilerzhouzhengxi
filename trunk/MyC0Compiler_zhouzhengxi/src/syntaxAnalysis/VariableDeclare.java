@@ -1,7 +1,7 @@
 package syntaxAnalysis;
 
-import errorMg.ErrorFactory;
-import errorMg.Errors;
+import errorDeal.ErrorFactory;
+import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 

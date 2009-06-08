@@ -1,7 +1,7 @@
 package syntaxAnalysis;
 
 import outputPCode.PCodeFactory;
-import errorMg.*;
+import errorDeal.*;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 
