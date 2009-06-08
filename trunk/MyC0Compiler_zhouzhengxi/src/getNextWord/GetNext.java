@@ -23,7 +23,7 @@ public class GetNext {
 	 */
 	static {
 		try {
-			File file = new File("token.txt");
+			File file = new File("Token.txt");
 			tokenReader = new BufferedReader(new FileReader(file));
 		} catch (IOException e) {
 			e.printStackTrace();

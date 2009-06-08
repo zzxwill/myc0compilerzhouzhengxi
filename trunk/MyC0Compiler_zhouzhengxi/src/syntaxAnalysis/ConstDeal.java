@@ -76,7 +76,7 @@ public class ConstDeal {
 
 							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
-								new ErrorFactory(error).display();
+								new ErrorOper(error).display();
 								result = false;
 								break;
 							} else {
@@ -85,7 +85,7 @@ public class ConstDeal {
 
 						} else {
 							Errors error = Errors.lostValue;
-							new ErrorFactory(error).display();
+							new ErrorOper(error).display();
 							result = false;
 							break;
 						}
@@ -97,7 +97,7 @@ public class ConstDeal {
 
 				} else {
 					Errors error = Errors.lostSymbol;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 					result = false;
 					break;
 				}
@@ -146,7 +146,7 @@ public class ConstDeal {
 
 							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
-								new ErrorFactory(error).display();
+								new ErrorOper(error).display();
 								result = false;
 								break;
 							} else {
@@ -155,7 +155,7 @@ public class ConstDeal {
 
 						} else {
 							Errors error = Errors.lostValue;
-							new ErrorFactory(error).display();
+							new ErrorOper(error).display();
 							result = false;
 							break;
 						}
@@ -167,7 +167,7 @@ public class ConstDeal {
 
 				} else {
 					Errors error = Errors.lostSymbol;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 					result = false;
 					break;
 				}
@@ -214,7 +214,7 @@ public class ConstDeal {
 
 							if (!SymbolOper.add(symbol)) {
 								Errors error = Errors.consReDefine;
-								new ErrorFactory(error).display();
+								new ErrorOper(error).display();
 								result = false;
 								break;
 							} else {
@@ -223,7 +223,7 @@ public class ConstDeal {
 
 						} else {
 							Errors error = Errors.lostValue;
-							new ErrorFactory(error).display();
+							new ErrorOper(error).display();
 							result = false;
 							break;
 						}
@@ -235,7 +235,7 @@ public class ConstDeal {
 
 				} else {
 					Errors error = Errors.lostSymbol;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 					result = false;
 					break;
 				}

@@ -3,7 +3,7 @@ package syntaxAnalysis;
 import outputPCode.PCodePut;
 import symbolTable.Symbol;
 import symbolTable.SymbolOper;
-import errorDeal.ErrorFactory;
+import errorDeal.ErrorOper;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
@@ -66,15 +66,15 @@ public class IO {
 					}
 					else{
 						Errors error = Errors.lostFH_Error;
-						new ErrorFactory(error).display();
+						new ErrorOper(error).display();
 					}
 				} else {
 					Errors error = Errors.lostXKH2;
-					new ErrorFactory(error).display();
+					new ErrorOper(error).display();
 				}
 			} else {
 				Errors error = Errors.lostXKH1;
-				new ErrorFactory(error).display();
+				new ErrorOper(error).display();
 			}
 
 		} else if (Factor.tempName.equals("printf")) {

@@ -1,6 +1,6 @@
 package syntaxAnalysis;
 
-import errorDeal.ErrorFactory;
+import errorDeal.ErrorOper;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
@@ -41,7 +41,7 @@ public class Const {
 					
 					}else{
 						Errors error = Errors.lostFH_Error;
-						new ErrorFactory(error).display();
+						new ErrorOper(error).display();
 						result = false;
 						break;
 					}

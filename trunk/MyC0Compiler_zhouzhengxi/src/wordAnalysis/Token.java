@@ -2,7 +2,7 @@ package wordAnalysis;
 /*
  * 定义一种词法分析表中的各项的类型
  */
-public class token {
+public class Token {
 	private int label=0;
 	private String name="";
 	private int code=0;
