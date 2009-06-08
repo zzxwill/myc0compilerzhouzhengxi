@@ -1,4 +1,4 @@
-package compiler.structure;
+package wordAnalysis;
 
 /*
  * 针对KeyWord.txt及关键字提供一种数据结构。
