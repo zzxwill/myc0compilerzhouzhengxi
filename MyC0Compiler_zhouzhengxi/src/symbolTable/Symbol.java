@@ -19,8 +19,7 @@ public class Symbol {
 	private String layer = "";
 	private String belong = "";
 	
-//	private int isConst = 0;
-//	private int isParam = 0;
+
 	
 	public Symbol(String name,int kind,String value,int addr,String layer,String belong){
 		super();
