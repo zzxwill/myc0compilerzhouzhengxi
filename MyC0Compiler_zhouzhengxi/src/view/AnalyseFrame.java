@@ -1,14 +1,10 @@
 package view;
-import javax.swing.text.*;
+
 import java.io.*;
 import compiler.structure.KeyWord;
-import compiler.structure.Stack;
 import compiler.structure.token;
-public class AnalyseFrame {
 
-	/**
-	 * 
-	 */
+public class AnalyseFrame {
 	private static final long serialVersionUID = 1L;
 
 	// 文件名
@@ -47,62 +43,14 @@ public class AnalyseFrame {
 
 	InputStreamReader reader;
 
-	/*
-	 * 堆栈段的实例
-	 */
-	Stack[] stack_expr = new Stack[100];
-
-	String ID;
-	/*
-	 * pos是进栈的符号个数。 这符号，有可能是 也就是Push(code,address)执行的次数。
-	 */
-	int pos;
-	int now_addr;
-	int len_count;
-	boolean E_Contrl;
-	boolean printf_num = false;
-	int E_rtn;
-	int temp_count;
-	int let_count;
-	int gen_pos;
 	BufferedReader token_reader;
 
-	// private File sourFile = null;// source file you want to compile
 	private File sourFile = new File("sourceCode.txt");// source file you want
-	// to compile
-
-	private Document indocument;
-	private boolean edited = false;// judge whether the file is edited or not
 
 	public static void main(String[] args) {
-		
-		new AnalyseFrame().analyseFile();
-
+		new AnalyseFrame().word_analysis();
 	}
-
-	/**
-	 * This is the default constructor
-	 */
-	public AnalyseFrame() {
-		super();
-		// initialize();
-	}
-
-	/**
-	 * 编译文件
-	 */
-
-	private void analyseFile() {
-		filename = sourFile.getName().substring(0,
-				sourFile.getName().indexOf("."));
-		System.out.print(filename);
-		/*
-		 * 词法
-		 */
-		word_analysis();
-		
-	}
-
+	
 	/* 词法分析函数 */
 	public void word_analysis() {
 		int i = 0;
@@ -115,16 +63,15 @@ public class AnalyseFrame {
 		label_count = 1;
 		token_num = 1;
 		/*
-		 * To initial the example of class Symble,KeyWord,Token.
+		 * To initial the example of class KeyWord
 		 */
 		for (i = 0; i < 100; i++) {
 			/*
-			 * 最终要将结果写入到keyword.txt，token.txt,symble.txt中，
-			 * 估计，keyword.txt,symble.txt最多为 100项 token.txt为1024项。
-			 * 它们都是通过SymbleList[i]，SymbleList_Pro[i]，key[i]获取，然后，存入到
+			 * 最终要将结果写入到keyword.txt，token.txt,
+			 * 估计，keyword.txt,最多为 100项 token.txt为1024项。
+			 * 它们都是通过key[i]获取，然后，存入到
 			 * 这些文档中的。因此，选初始化
 			 */
-
 			key[i] = new KeyWord();
 		}
 		for (i = 0; i < 1024; i++)
@@ -659,7 +606,6 @@ public class AnalyseFrame {
 
 	// 输出模块
 	public void OutPut() {
-		boolean flag = false;
 		if (!Is_Program) {
 			/*
 			 * 标识符 27 整常数 28 实常数 29 字符常数 30
@@ -674,20 +620,16 @@ public class AnalyseFrame {
 				 * 
 				 * Symble int number; // 序号 int type; // 类型 String name; // 名称
 				 */
-				
-//				flag = WordHave();
-				
-					
+
+				// flag = WordHave();
 			}
 		} else {
-			
+
 		}
 		append("token.txt", CurrentToken.getlabel(), CurrentToken.getcode(),
 				CurrentToken.getaddr(), CurrentToken.getname());
-	
+
 		tokenList[token_num++].setcode(CurrentToken.getcode());
-		System.out.print("out put " + tokenList[token_num - 1].getcode() + " "
-				+ token_num + "\n");
 
 	}
 
@@ -771,10 +713,6 @@ public class AnalyseFrame {
 		}
 	}
 
-	
-
-	
-
 	// 写入文件
 	public void append(String fileName, int number, int type, String name) {
 		try {
@@ -804,21 +742,7 @@ public class AnalyseFrame {
 		}
 	}
 
-	/*
-	 * 生成目标代码
-	 */
-	public void gen_target(String fileName, String content) {
-		try {
-			// 打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
-			FileWriter writer = new FileWriter(fileName, true);
-			writer.write(content);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	// 清空symble,token文件
+	// 清空token文件
 	public void clearObj() {
 		try {
 
