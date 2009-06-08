@@ -2,15 +2,15 @@ package syntaxAnalysis;
 
 import layerControl.Layer;
 import outputPCode.Command;
-import outputPCode.PCodeFactory;
+import outputPCode.PCodePut;
 import errorDeal.ErrorFactory;
 import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 
-public class MainProcedure {
+public class MainFunction {
 	WordStructure word;
-	public MainProcedure(){
+	public MainFunction(){
 		super();
 	}
 	public boolean payBack(){
@@ -30,17 +30,17 @@ public class MainProcedure {
 			 * 这里，a是指令的编号
 			 */
 			
-			int curCommandNum = PCodeFactory.getCommandNum();
+			int curCommandNum = PCodePut.getCommandNum();
 			
 			Command command = new Command(1,"JMP","0",""+(curCommandNum+1));
 			System.out.println("JMP	"+"0"+"	"+(curCommandNum+1));
-//			PCodeFactory.output("LIT  " + layer + "  " + word.getWordName());
+//			PCodePut.output("LIT  " + layer + "  " + word.getWordName());
 //			System.out.println("LIT  " + layer + "  " + word.getWordName());
 			
 			/*
 			 *   保存Pcode
 			 */
-			PCodeFactory.insertCommand(command);
+			PCodePut.insertCommand(command);
 		
 			/*
 			 * 更新当前函数名
@@ -51,9 +51,9 @@ public class MainProcedure {
 			int kind = 6;
 			String value = "#";
 			String belong = "global";
-			int addr = PCodeFactory.getCommandNum()+1;
+			int addr = PCodePut.getCommandNum()+1;
 			Symbol symbol = new Symbol(name,kind,value,belong,addr);
-			SymbolTable.add(symbol);
+			SymbolOper.add(symbol);
 			*/
 			word=GetNext.payBack();
 	
@@ -70,12 +70,12 @@ public class MainProcedure {
 						 */
 //						if(new ComplexSentenceHandler().payBack()){    //复合语句
 						
-						if(new FactorHandler().payBack()){    //复合语句
+						if(new Factor().payBack()){    //复合语句
 						
 							word=GetNext.payBack();
 							if(word.getWordName().equals("}")){
-								//PCodeFactory.output("");
-								PCodeFactory.output("JMP  " + 0 + "  "
+								//PCodePut.output("");
+								PCodePut.output("JMP  " + 0 + "  "
 										+ "END"); // 此处待议
 								System.out.println("LIT  " + 0 + "  "
 										+ "END");

@@ -1,11 +1,10 @@
 package syntaxAnalysis;
 
-import interpret.Interpreter;
 import outputPCode.PCode;
-import symbolTable.SymbolTable;
 
-
-
+/*
+ * 语法分析程序的开始
+ */
 public class Start_SyntaxAnalysis {
 	public Start_SyntaxAnalysis(){
 		super();
@@ -17,17 +16,17 @@ public class Start_SyntaxAnalysis {
 		/*
 		 * 常量声明
 		 */
-		new ConstHandler().payBack();
+		new Const().payBack();
 		/*
 		 * 变量声明
 		 */
-		new VariableDeclare().payBack();
+		new Variable().payBack();
 		/*
 		 *  main 函数
 		 */
-		new MainProcedure().payBack();
+		new MainFunction().payBack();
 		
-		new PCode();
+
 		/*
 		 * 输出Symbol中的内容
 		 * 
@@ -37,7 +36,7 @@ public class Start_SyntaxAnalysis {
 		/*
 		 * PCode的解释执行
 		 */
-		Interpreter.payBack();
+		
 		
 		return result;
 	}
@@ -47,7 +46,7 @@ public class Start_SyntaxAnalysis {
 	public static void main(String args[]){
 		Start_SyntaxAnalysis start=new Start_SyntaxAnalysis();
 		start.payBack();
-//		SymbolTable.printSymbol();
+//		SymbolOper.printSymbol();
 		
 	}
 

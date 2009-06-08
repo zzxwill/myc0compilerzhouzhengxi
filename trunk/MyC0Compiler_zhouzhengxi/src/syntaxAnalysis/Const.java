@@ -5,15 +5,17 @@ import errorDeal.Errors;
 import getNextWord.GetNext;
 import getNextWord.WordStructure;
 
-
-public class ConstHandler {
+/*
+ * 声明常量子程序
+ */
+public class Const {
 	
 	/*
 	 * tempName;是传给
 	 * 变量声明来用的。
 	 */
 	public static String tempName;
-	public ConstHandler(){
+	public Const(){
 		super();
 	}
 	
@@ -22,18 +24,18 @@ public class ConstHandler {
 		WordStructure word;
 		
 		word = GetNext.payBack();
-		if(word.getWordName().equals("const")){      //常量说明
+		if(word.getWordName().equals("const")){      
 			do{
-				if(new ConstDefineHandler().payBack()){    //常量定义
+				if(new ConstDeal().payBack()){   
 //					word = GetNext.payBack();
 					/*
 					 * 上面的一句不要
-					 * 因为，在ConstDefineHandler()中，最后，已经获取和了一个单词
+					 * 因为，在ConstDeal()中，最后，已经获取和了一个单词
 					 * 并且判断它是不是，
 					 * 
 					 * 
 					 */
-					if(ConstDefineHandler.tempName.equals(";")){
+					if(ConstDeal.tempName.equals(";")){
 						result = true;
 						
 					
@@ -52,7 +54,6 @@ public class ConstHandler {
 			}while(tempName.equals("const"));			
 		}
 		
-//		SymFactory.rollBack();
 		
 		return result;
 	}
